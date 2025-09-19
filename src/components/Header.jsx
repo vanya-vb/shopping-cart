@@ -5,7 +5,7 @@ import { FaShoppingCart } from "react-icons/fa";
 export default function Header() {
     const [showDropdown, setShowDropdown] = useState(false);
 
-    const { cart } = useCart();
+    const { cart, removeFromCart, clearCart } = useCart();
     const itemCount = cart.reduce((acc, item) => acc + item.qty, 0);
     const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2);
 
@@ -43,6 +43,13 @@ export default function Header() {
                                                                 {item.qty} x ${item.price}
                                                             </p>
                                                         </div>
+
+                                                        <button
+                                                            onClick={() => removeFromCart(item.id)}
+                                                            className="text-sm text-red-500 hover:underline"
+                                                        >
+                                                            Remove
+                                                        </button>
                                                     </li>
                                                 ))
                                             }
@@ -52,6 +59,13 @@ export default function Header() {
                                             <span>Total: </span>
                                             <span>${total}</span>
                                         </div>
+
+                                        <button
+                                            onClick={clearCart}
+                                            className="mt-3 w-full bg-red-500 text-white text-xs font-semibold py-1 rounded trasition hover:bg-red-600"
+                                        >
+                                            Clear Cart
+                                        </button>
                                     </>
                                 )}
                         </div>
